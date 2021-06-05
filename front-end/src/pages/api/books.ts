@@ -4,19 +4,19 @@ import url from "url";
 
 let cachedDb: Db = null;
 
-async function connectDB(uri: string) {
+async function connectDB(uri: string): Promise<Db> {
   if (cachedDb) {
     return cachedDb;
   }
 
-  const client = MongoClient.connect(uri, {
+  const client = await MongoClient.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
 
   const dbName = url.parse(uri).pathname.substr(1);
 
-  const db = (await client).db(dbName);
+  const db = client.db(dbName);
   cachedDb = db;
   return db;
 }
