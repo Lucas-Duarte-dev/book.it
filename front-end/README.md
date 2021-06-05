@@ -1,34 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Criando uma conexão no NextJS com o MongoDB
 
-## Getting Started
+### Instalação
 
-First, run the development server:
+- Instale o MongoDB com `yarn add mongodb` e suas tipagens `yarn add @types/mongodb -D`
 
-```bash
-npm run dev
-# or
-yarn dev
+Instale também o vercel/node para que possa ter a intelicense na hora de criar sua api
+`yarn add @vercel/node`
+
+## Código de conexão com o banco não relacional e função para a criação feedback do livro
+
+```ts
+import { VercelRequest, VercelResponse } from "@vercel/node";
+import { MongoClient, Db } from "mongodb";
+import url from "url";
+
+let cachedDb: Db = null;
+
+async function connectDB(uri: string): Promise<Db> {
+  if (cachedDb) {
+    return cachedDb;
+  }
+
+  const client = await MongoClient.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+  const dbName = url.parse(uri).pathname.substr(1);
+
+  const db = client.db(dbName);
+  cachedDb = db;
+  return db;
+}
+
+export default async (request: VercelRequest, response: VercelResponse) => {
+  const { author, title, description } = request.body;
+
+  const db = await connectDB(process.env.MONGODB_URI);
+
+  const collection = db.collection("books");
+
+  await collection.insertOne({
+    author,
+    title,
+    description,
+    created_at: new Date(),
+  });
+
+  return response.status(201).json({ message: "okay" });
+};
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Adicionando o Prisma no NextJS
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Instalando e fazendo conexão
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- Primeiro vamos instalar o prisma com:
+  ` yarn add prisma -D` e `yarn add @prisma/cli`
+- Após isso vamos rodar o comando: `yarn prisma init` com isso será criado a pasta prisma e um arquivo `.env` onde colocará as informações para conexão com o banco
+- No arquivo `schema.prisma` vamos fazer o nosso primeiro model, no meu caso o Book
+- Após esta etapa crie um arquivo na pasta `src` chamada `prisma.ts` e nela coloque o seguinte código:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```ts
+import { PrismaClient } from "@prisma/client";
 
-## Learn More
+export const prisma = new PrismaClient();
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Após a criação deste arquivo rode o comando `yarn prisma migrate dev` e já era. Você fez sua conexão
