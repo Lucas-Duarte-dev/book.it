@@ -5,7 +5,7 @@ CREATE TABLE "Books" (
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "rate" INTEGER NOT NULL,
-    "recommends" BOOLEAN NOT NULL DEFAULT false,
+    "recommends" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );

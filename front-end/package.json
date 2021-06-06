@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@prisma/client": "^2.24.1",
     "@vercel/node": "^1.11.0",
     "axios": "^0.21.1",
     "mongodb": "^3.6.9",
@@ -16,7 +17,6 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@prisma/client": "^2.24.1",
     "@types/mongodb": "^3.6.17",
     "@types/node": "^15.12.1",
     "@types/react": "^17.0.9",

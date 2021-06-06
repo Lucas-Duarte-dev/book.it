@@ -14,5 +14,5 @@ model Books {
   title       String
   description String
   rate        Int
-  recommends  Boolean @default(false)
+  recommends  String
 }
