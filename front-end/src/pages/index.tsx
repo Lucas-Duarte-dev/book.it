@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import React, { FormEvent, useCallback, useState } from "react";
 import { prisma } from "../prisma";
 import { Books } from "@prisma/client";
+import styles from "../styles/home.module.scss";
 import axios from "axios";
 
 type HomeProps = {
@@ -33,8 +34,8 @@ export default function Home({ books }: HomeProps) {
     setAllBooks([...allBooks, createBooks]);
   }
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit} className={styles.form_container}>
         <div className="input_block">
           <label>Autor</label>
           <input
@@ -77,11 +78,11 @@ export default function Home({ books }: HomeProps) {
         <div className="input_block">
           <label>Você recomendaria esse livro?</label>
           <select name="recommends" onChange={handleChange}>
-            <option value="Nunca">Péssimo</option>
+            <option value="Nunca">Nunca</option>
             <option value="Não">Não</option>
-            <option value="Talvez sim">Razoavel</option>
-            <option value="Sim">Simm</option>
-            <option value="Recomendaria demais!">Adoreii!</option>
+            <option value="Talvez sim">Talvez sim</option>
+            <option value="Sim">Sim</option>
+            <option value="Recomendaria demais!">Recomendaria demais!</option>
           </select>
         </div>
         <button type="submit">Enviar</button>

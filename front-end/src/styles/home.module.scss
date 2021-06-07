@@ -1,0 +1,64 @@
+.container {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 30rem 1fr;
+  padding: 0.3rem;
+}
+
+.form_container {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 1.2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 60px 60px rgba(0, 0, 0, 0.4);
+
+  & div {
+    display: flex;
+    flex-direction: column;
+    color: #333;
+
+    & label {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      white-space: nowrap;
+    }
+
+    & input,
+    select {
+      width: 100%;
+      height: 2.5rem;
+      border: 1px solid #343636;
+      border-radius: 0.4rem;
+      outline: none;
+      padding: 0 0.5rem;
+      font-size: 1rem;
+      background: transparent;
+      transition: border 0.2s ease-in;
+
+      &:focus {
+        border: 2px solid #1f96c5;
+      }
+    }
+  }
+
+  & button {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    height: 4rem;
+    border: none;
+    background: rgb(0, 165, 110);
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0.7rem;
+    transition: background 0.2s ease-in;
+
+    &:hover {
+      background: rgb(17, 119, 85);
+    }
+  }
+
+  & div + div {
+    margin-top: 1.3rem;
+  }
+}
