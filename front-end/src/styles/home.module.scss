@@ -13,6 +13,11 @@
   border-radius: 0.5rem;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
 
+  & img {
+    width: 8rem;
+    margin-bottom: 0.8rem;
+  }
+
   & div {
     display: flex;
     flex-direction: column;
@@ -63,14 +68,14 @@
     font-size: 1.2rem;
     height: 4rem;
     border: none;
-    background: rgb(0, 165, 110);
+    background: #2b5a90;
     color: #fff;
     cursor: pointer;
     border-radius: 0.7rem;
     transition: background 0.2s ease-in;
 
     &:hover {
-      background: rgb(17, 119, 85);
+      background: #2f4866;
     }
   }
 

@@ -43,6 +43,7 @@ export default function Home({ books }: HomeProps) {
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form_container}>
+        <img src="/icons/logo.svg" />
         <div className="input_block">
           <label>Autor</label>
           <input
@@ -112,10 +113,7 @@ export default function Home({ books }: HomeProps) {
                     }
                   />
                 </span>
-                <span>
-                  Recomenda este livro?
-                  {book.recommends}
-                </span>
+                <span>Recomenda este livro? {book.recommends}</span>
               </section>
             </div>
           );
