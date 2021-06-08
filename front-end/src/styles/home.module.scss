@@ -11,7 +11,7 @@
   flex-direction: column;
   padding: 3rem 1.2rem;
   border-radius: 0.5rem;
-  box-shadow: 0 60px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
 
   & div {
     display: flex;
@@ -40,6 +40,22 @@
         border: 2px solid #1f96c5;
       }
     }
+
+    & textarea {
+      width: 100%;
+      border: 1px solid #343636;
+      border-radius: 0.4rem;
+      outline: none;
+      padding: 0.5rem;
+      font-size: 1rem;
+      background: transparent;
+      transition: border 0.2s ease-in;
+      resize: none;
+
+      &:focus {
+        border: 2px solid #1f96c5;
+      }
+    }
   }
 
   & button {
@@ -55,6 +71,65 @@
 
     &:hover {
       background: rgb(17, 119, 85);
+    }
+  }
+
+  & div + div {
+    margin-top: 1.3rem;
+  }
+}
+
+.books_container {
+  padding: 0 2rem;
+  height: 100%;
+  overflow-y: auto;
+  & div {
+    width: 100%;
+    padding: 0.5rem 2rem;
+
+    border: 1px solid #e1e1e1;
+    border-radius: 0.7rem;
+
+    display: flex;
+    flex-direction: column;
+
+    & h3 {
+      font-size: 1.5rem;
+      color: #3b4a5b;
+    }
+
+    & span {
+      font-family: "KoHo", sans-serif;
+      margin-top: 0.5rem;
+    }
+    & small {
+      margin: 0.6rem 0;
+      color: #3f3f3f;
+    }
+
+    & section {
+      display: flex;
+      align-items: center;
+
+      & span:nth-child(1) {
+        font-size: 1.1rem;
+        color: #3a3a3a;
+        font-weight: 400;
+
+        display: flex;
+        align-items: center;
+        & strong {
+          font-weight: bold;
+        }
+
+        & img {
+          margin-left: 0.5rem;
+        }
+      }
+
+      & span:nth-child(2) {
+        margin: 0 5rem;
+      }
     }
   }
 

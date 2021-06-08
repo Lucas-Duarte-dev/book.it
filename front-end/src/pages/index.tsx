@@ -14,7 +14,11 @@ export default function Home({ books }: HomeProps) {
   const [allBooks, setAllBooks] = useState(books);
 
   const handleChange = useCallback(
-    (event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) => {
+    (
+      event: React.FormEvent<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >
+    ) => {
       setCreateBooks({
         ...createBooks,
         [event.currentTarget.name]:
@@ -33,6 +37,9 @@ export default function Home({ books }: HomeProps) {
 
     setAllBooks([...allBooks, createBooks]);
   }
+
+  console.log(createBooks);
+
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form_container}>
@@ -56,12 +63,12 @@ export default function Home({ books }: HomeProps) {
         </div>
         <div className="input_block">
           <label>Dê uma breve descrição</label>
-          <input
-            type="text"
+          <textarea
             placeholder="Digite o autor do livro"
             name="description"
             onChange={handleChange}
-          />
+            rows={5}
+          ></textarea>
         </div>
         <div className="input_block">
           <label>Dê uma nota de 1 a 10 para este livro</label>
@@ -88,18 +95,28 @@ export default function Home({ books }: HomeProps) {
         <button type="submit">Enviar</button>
       </form>
 
-      <div>
+      <div className={styles.books_container}>
         {allBooks.map((book, index) => {
           return (
             <div key={index}>
               <h3>{book.author}</h3>
               <span>{book.title}</span>
-              <br></br>
+
               <small>{book.description}</small>
-              <div>
-                <p>Nota: {book.rate}</p>
-                <span>Recomenda este livro? {book.recommends}</span>
-              </div>
+              <section>
+                <span>
+                  <strong>Nota:</strong> {book.rate}
+                  <img
+                    src={
+                      book.rate >= 5 ? "/icons/feliz.svg" : "/icons/bravo.svg"
+                    }
+                  />
+                </span>
+                <span>
+                  Recomenda este livro?
+                  {book.recommends}
+                </span>
+              </section>
             </div>
           );
         })}
